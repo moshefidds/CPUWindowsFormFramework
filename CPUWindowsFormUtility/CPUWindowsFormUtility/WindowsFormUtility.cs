@@ -5,13 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace CPUWindowsFormUtility
-//{
-//    internal class WindowsFormUtility
-//    {
-//    }
-//}
-
 
 namespace CPUWindowsFormFramework
 {
