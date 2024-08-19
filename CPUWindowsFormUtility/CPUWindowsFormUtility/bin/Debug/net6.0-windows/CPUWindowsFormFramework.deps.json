@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "CPUWindowsFormFramework/1.0.0": {
+        "runtime": {
+          "CPUWindowsFormFramework.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CPUWindowsFormFramework/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
