@@ -1,0 +1,14 @@
+C:\Users\shain\repos\CPUWindowsFormFramework\bin\Debug\net6.0-windows\CPUWindowsFormFramework.exe
+C:\Users\shain\repos\CPUWindowsFormFramework\bin\Debug\net6.0-windows\CPUWindowsFormFramework.deps.json
+C:\Users\shain\repos\CPUWindowsFormFramework\bin\Debug\net6.0-windows\CPUWindowsFormFramework.runtimeconfig.json
+C:\Users\shain\repos\CPUWindowsFormFramework\bin\Debug\net6.0-windows\CPUWindowsFormFramework.dll
+C:\Users\shain\repos\CPUWindowsFormFramework\bin\Debug\net6.0-windows\CPUWindowsFormFramework.pdb
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.AssemblyInfoInputs.cache
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.AssemblyInfo.cs
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.csproj.CoreCompileInputs.cache
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.dll
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\refint\CPUWindowsFormFramework.dll
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.pdb
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\CPUWindowsFormFramework.genruntimeconfig.cache
+C:\Users\shain\repos\CPUWindowsFormFramework\obj\Debug\net6.0-windows\ref\CPUWindowsFormFramework.dll
