@@ -49,7 +49,6 @@ namespace CPUWindowsFormFramework
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
-
     }
 }
 
