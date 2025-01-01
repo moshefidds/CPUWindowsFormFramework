@@ -1,5 +1,5 @@
 ﻿using System.Data;
-
+using System.Runtime.CompilerServices;
 
 namespace CPUWindowsFormFramework
 {
@@ -14,7 +14,6 @@ namespace CPUWindowsFormFramework
             {
                 lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
             }
-            
         }
 
         public static void SetControlBinding(Control ctrl, BindingSource bindsource)
@@ -33,12 +32,23 @@ namespace CPUWindowsFormFramework
                 case "dtp":
                     propertyname = "Value";
                     break;
+                case "ckb":
+                    propertyname = "Checked";
+                    break;
             }
 
             if (propertyname != "" && columnname != "")
             {
                 ctrl.DataBindings.Add(propertyname, bindsource, columnname, true, DataSourceUpdateMode.OnPropertyChanged);
             }
+        }
+
+        public static void FormatGridForView(DataGridView grid)
+        {
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            grid.ReadOnly = true;
+            grid.ClearSelection();
         }
 
         public static void FormatGridForSearch(DataGridView grid, string tablename)
@@ -57,9 +67,14 @@ namespace CPUWindowsFormFramework
 
         private static void DoFormatGrid(DataGridView grid, string tablename)
         {
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            grid.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             grid.RowHeadersWidth = 25;
-            foreach(DataGridViewColumn col in grid.Columns)
+            foreach (DataGridViewColumn col in grid.Columns)
             {
                 if (col.Name.EndsWith("Id"))
                 {
@@ -77,12 +92,12 @@ namespace CPUWindowsFormFramework
         {
             int id = 0;
             if (
-                rowindex < grid.Rows.Count 
-                && 
-                grid.Columns.Contains(columnname) 
-                && 
-                grid.Rows[rowindex].Cells[columnname].Value != DBNull.Value 
-                && 
+                rowindex < grid.Rows.Count
+                &&
+                grid.Columns.Contains(columnname)
+                &&
+                grid.Rows[rowindex].Cells[columnname].Value != DBNull.Value
+                &&
                 grid.Rows[rowindex].Cells[columnname].Value is int
                 )
             {
@@ -103,6 +118,16 @@ namespace CPUWindowsFormFramework
             return value;
         }
 
+        public static string GetNameFromCombobox(ComboBox lst)
+        {
+            string value = "";
+            if (lst.SelectedText != null && lst.SelectedText is string)
+            {
+                value = (string)lst.SelectedText;
+            }
+            return value;
+        }
+
         public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
         {
             DataGridViewComboBoxColumn c = new();
@@ -111,7 +136,7 @@ namespace CPUWindowsFormFramework
             c.ValueMember = tablename + "Id";
             c.DataPropertyName = c.ValueMember;
             c.HeaderText = tablename;
-            grid.Columns.Insert(0, c);
+            grid.Columns.Insert(0,c);
         }
 
         public static void AddDeleteButtonToGrid(DataGridView grid, string deletecolumnname)
@@ -119,9 +144,10 @@ namespace CPUWindowsFormFramework
             grid.Columns.Add(new DataGridViewButtonColumn() { Text = "X", HeaderText = "Delete", Name = deletecolumnname, UseColumnTextForButtonValue = true });
         }
 
-        public static bool IsFormOpen(Type formtype, int pkvalue = 0)
+        public static (bool, Form) IsFormOpen(Type formtype, int pkvalue = 0)
         {
             bool exists = false;
+            Form newfrm = new();
             foreach (Form frm in Application.OpenForms)
             {
                 int frmpkvalue = 0;
@@ -131,12 +157,13 @@ namespace CPUWindowsFormFramework
                 }
                 if (frm.GetType() == formtype && frmpkvalue == pkvalue)
                 {
-                    frm.Activate();
+                    newfrm = frm;
+                    //frm.Activate();
                     exists = true;
                     break;
                 }
             }
-            return exists;
+            return (exists, newfrm);
         }
 
         public static void SetupNav(ToolStrip ts)
@@ -149,22 +176,34 @@ namespace CPUWindowsFormFramework
                     ToolStripButton btn = new();
                     btn.Text = f.Text;
                     btn.Tag = f;
-                    btn.Click += Btn_Click;
+
+
                     ts.Items.Add(btn);
                     ts.Items.Add(new ToolStripSeparator());
+                    SetupNavColor(f, btn);
+                    f.Activated += (s, args) => SetupNavColor(f, btn);
+                    btn.Click += (s, args) => Btn_Click(ts, btn);
                 }
             }
         }
 
-        private static void Btn_Click(object? sender, EventArgs e)
+        private static void SetupNavColor(Form f, ToolStripButton btn)
         {
-            if (sender != null && sender is ToolStripButton)
+            btn.BackColor = f.WindowState == FormWindowState.Maximized ? Color.LightGray : default;
+        }
+
+        private static void Btn_Click(ToolStrip ts, ToolStripButton btn)
+        {
+            foreach (ToolStripItem i in ts.Items)
             {
-                ToolStripButton btn = (ToolStripButton)sender;
-                if (btn.Tag != null && btn.Tag is Form)
+                if (i is ToolStripButton b && i != null)
                 {
-                    ((Form)btn.Tag).Activate();
+                    b.BackColor = default;
                 }
+            }
+            if (btn.Tag != null && btn.Tag is Form)
+            {
+                ((Form)btn.Tag).Activate();
             }
         }
     }
