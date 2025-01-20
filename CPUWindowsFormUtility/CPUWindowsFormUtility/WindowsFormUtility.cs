@@ -34,6 +34,7 @@ namespace CPUWindowsFormFramework
                     break;
                 case "ckb":
                     propertyname = "Checked";
+                    
                     break;
             }
 
@@ -87,6 +88,15 @@ namespace CPUWindowsFormFramework
                 grid.Columns[pkname].Visible = false;
             }
         }
+        
+        public static void FormatTextBoxToInt(KeyPressEventArgs e, string txtname)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show($"{txtname} can only accept numbers.", Application.ProductName);
+            }
+        }
 
         public static int GetIdFromGrid(DataGridView grid, int rowindex, string columnname)
         {
@@ -136,7 +146,7 @@ namespace CPUWindowsFormFramework
             c.ValueMember = tablename + "Id";
             c.DataPropertyName = c.ValueMember;
             c.HeaderText = tablename;
-            grid.Columns.Insert(0,c);
+            grid.Columns.Insert(0, c);
         }
 
         public static void AddDeleteButtonToGrid(DataGridView grid, string deletecolumnname)
